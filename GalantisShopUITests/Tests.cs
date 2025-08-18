@@ -5,10 +5,8 @@ using System.Diagnostics;
 namespace GalantisShopUITests
 {
     [TestClass]
-    public sealed class Tests : Methods
+    public sealed class Tests : Elements
     {
-        Elements elements = new Elements();
-
         [TestInitialize]
         public void TestInit()
         {
@@ -19,14 +17,13 @@ namespace GalantisShopUITests
         public void CheckMainPageGalantisLogo()
         {
             GoToHomeWebPage();
-            ClickOnCssElement(elements.galantisMainPageLogo);
-            KillChromeDriver();
+            ClickOnMainPageLogo();            
         }
 
         [TestCleanup]
-        public void TestCleanup()
+        public void Cleanup() 
         {
-            KillChromeDriver();
+            CleanUpAfterTest();
         }
     }
 }

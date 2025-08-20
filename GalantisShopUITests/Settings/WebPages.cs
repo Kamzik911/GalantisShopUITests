@@ -2,6 +2,6 @@
 {
     public class WebPages
     {
-        public readonly string homeWebsite = "https://galantis.merchtable.com/";
+        public static string homeWebsite = "https://galantis.merchtable.com/";
     }
 }

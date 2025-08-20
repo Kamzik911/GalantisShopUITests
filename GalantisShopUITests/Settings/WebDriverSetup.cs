@@ -13,15 +13,18 @@ namespace GalantisShopUITests.Settings
             {
                 case "chrome":
                     var chromeOptions = new ChromeOptions();
+                    chromeOptions.AddArgument("--headless");
                     return new ChromeDriver(chromeOptions);
 
                 case "firefox":
                     var firefoxOptions = new FirefoxOptions();
+                    firefoxOptions.AddArgument("--headless");
                     return new FirefoxDriver(firefoxOptions);
 
                 case "edge":
-                    var edgefoxOptions = new EdgeOptions();
-                    return new EdgeDriver(edgefoxOptions);
+                    var edgeOptions = new EdgeOptions();
+                    edgeOptions.AddArgument("--headless");
+                    return new EdgeDriver(edgeOptions);
 
                 default:
                     throw new ArgumentException($"Browser not supported: {browserName}");

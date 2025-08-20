@@ -1,23 +1,30 @@
 ﻿using GalantisShopUITests.Settings;
 using OpenQA.Selenium;
-using System.Diagnostics;
+using OpenQA.Selenium.BiDi.Communication;
 
 namespace GalantisShopUITests
 {
     [TestClass]
     public sealed class Tests : Elements
     {
-        [TestInitialize]
-        public void TestInit()
+        [DataTestMethod]
+        [DataRow("chrome")]
+        [DataRow("edge")]        
+        public void ClickMainPageGalantisLogo_Pass(string browser)
         {
-            BrowserWindowMaximize();
+            StartBrowser(browser);
+            GoToHomeWebPage(browser);
+            ClickOnMainPageLogo();            
         }
 
-        [TestMethod]
-        public void CheckMainPageGalantisLogo()
+        //[DataTestMethod]
+        //[DataRow("chrome")]
+        //[DataRow("edge")]        
+        public void ClickOnWievAllMainPageButton_Pass(string browser)
         {
-            GoToHomeWebPage();
-            ClickOnMainPageLogo();            
+            StartBrowser(browser);
+            GoToHomeWebPage(browser);
+            ClickOnWievAllMainPageButton();
         }
 
         [TestCleanup]

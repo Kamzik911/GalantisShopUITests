@@ -6,39 +6,43 @@ namespace GalantisShopUITests.Settings
 {
     public class Methods : WebDriverSetup
     {
-        WebPages webPages = new WebPages();        
-        WebDriver webDriver = new WebDriverSetup().SelectWebDriver("chrome");        
-                
+        //protected WebDriver webDriver = new WebDriverSetup().SelectWebDriver("chrome");        
+        protected WebDriver webDriver;
+
+        public void StartBrowser(string browser)
+        {
+            webDriver = WebDriverOptions(browser);
+        }
+
         public void BrowserWindowMaximize()
-        {            
+        {
             webDriver.Manage().Window.Maximize();
         }
 
-        public void GoToHomeWebPage()
-        {            
-            webDriver.Navigate().GoToUrl(webPages.homeWebsite);
+        public void GoToHomeWebPage(string browser)
+        {
+            webDriver.Navigate().GoToUrl(WebPages.homeWebsite);
         }
-
+        // Waitings
         public void WaitForCssElement(string cssElement)
         {
             var wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             wait.Until(drv => drv.FindElement(By.CssSelector(cssElement)));
         }
 
+        // Click on elements
         public void ClickCssElement(string cssElement)
         {
             WaitForCssElement(cssElement);
             webDriver.FindElement(By.CssSelector(cssElement)).Click();
         }       
 
-        public void CleanChromeDriver()
-        {
-            var process = Process.GetProcessesByName("chromedriver");
-            
+        // Clean webDriver after test
+        public void CleanWebDriver()
+        {            
             if (webDriver != null)
             {
-                webDriver.Close();
-                webDriver.Quit();
+                webDriver.Close();                
             }
             else
             {
@@ -53,8 +57,12 @@ namespace GalantisShopUITests.Settings
                 try
                 {
                     process.Kill();
+                    process.WaitForExit();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    { }
+                }
             }
         }
     }
